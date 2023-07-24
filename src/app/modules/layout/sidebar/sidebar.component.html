@@ -1,0 +1,52 @@
+<nav
+  class="rounded hidden lg:pointer-events-auto lg:block lg:overflow-y-auto lg:p-4 lg:dark:border-white/10"
+>
+  <ul class="pt-2">
+    <div *ngFor="let item of menu">
+      <li
+        class="flex items-center text-zinc-600 dark:text-zinc-400 gap-x-4 cursor-pointer p-2 hover:bg-zinc-100/60 hover:shadow-lg dark:hover:shadow-lg dark:hover:shadow-zinc-800 rounded-md dark:hover:bg-zinc-800"
+        [ngClass]="addedClasses(item)"
+      >
+        <svg
+          class="w-[14px] h-[14px] text-gray-800 dark:text-white"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+          />
+        </svg>
+        <span class="text-base font-medium flex-1" *ngIf="isMenuOpen?.value">
+          {{ item.title }}
+        </span>
+        <span (click)="isSubMenuOpen = !isSubMenuOpen">
+          <svg
+            *ngIf="item.submenu && isMenuOpen?.value"
+            class="w-[14px] h-[14px] text-zinc-600 dark:text-zinc-400 duration-500"
+            [ngClass]="isSubMenuOpen ? 'rotate-180' : 'rotate-0'"
+            fill="none"
+            viewBox="0 0 14 8"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1"
+              d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"
+            />
+          </svg>
+        </span>
+      </li>
+      <div *ngIf="item.submenu && isSubMenuOpen" class="duration-500">
+        <ul>
+          <li
+            class="flex items-center text-zinc-600 dark:text-zinc-400 gap-x-4 cursor-pointer p-2 px-5 hover:bg-zinc-100/60 hover:shadow-lg dark:hover:shadow-lg dark:hover:shadow-zinc-800 rounded-md dark:hover:bg-zinc-800"
+            *ngFor="let subItem of item.submenuItems"
+          >
+            <span>{{ subItem.title }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ul>
+</nav>
